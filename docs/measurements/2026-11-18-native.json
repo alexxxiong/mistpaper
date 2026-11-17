@@ -1,0 +1,89 @@
+{
+  "scenario": "300000 characters, Noto Serif SC 20 DIP, line height 30 DIP, column 500 DIP, moving background",
+  "before": [
+    {
+      "fps": 31,
+      "active": 31,
+      "frames": 31,
+      "paint_mean_ms": 32.1,
+      "paint_p50_ms": 31.96,
+      "paint_p95_ms": 37.2
+    },
+    {
+      "fps": 30,
+      "active": 30,
+      "frames": 30,
+      "paint_mean_ms": 32.18,
+      "paint_p50_ms": 32.71,
+      "paint_p95_ms": 35.9
+    },
+    {
+      "fps": 30,
+      "active": 30,
+      "frames": 30,
+      "paint_mean_ms": 32.34,
+      "paint_p50_ms": 32.9,
+      "paint_p95_ms": 39.69
+    },
+    {
+      "fps": 29,
+      "active": 29,
+      "frames": 29,
+      "paint_mean_ms": 33.69,
+      "paint_p50_ms": 33.63,
+      "paint_p95_ms": 38.91
+    },
+    {
+      "fps": 29,
+      "active": 29,
+      "frames": 29,
+      "paint_mean_ms": 34.49,
+      "paint_p50_ms": 33.85,
+      "paint_p95_ms": 40.04
+    }
+  ],
+  "after": [
+    {
+      "fps": 62,
+      "active": 62,
+      "frames": 62,
+      "paint_mean_ms": 2.5,
+      "paint_p50_ms": 2.68,
+      "paint_p95_ms": 4.97
+    },
+    {
+      "fps": 62,
+      "active": 62,
+      "frames": 62,
+      "paint_mean_ms": 2.43,
+      "paint_p50_ms": 2.83,
+      "paint_p95_ms": 4.93
+    },
+    {
+      "fps": 62,
+      "active": 62,
+      "frames": 62,
+      "paint_mean_ms": 2.25,
+      "paint_p50_ms": 2.66,
+      "paint_p95_ms": 4.62
+    },
+    {
+      "fps": 62,
+      "active": 62,
+      "frames": 62,
+      "paint_mean_ms": 2.41,
+      "paint_p50_ms": 2.63,
+      "paint_p95_ms": 5.16
+    },
+    {
+      "fps": 62,
+      "active": 62,
+      "frames": 62,
+      "paint_mean_ms": 2.39,
+      "paint_p50_ms": 2.64,
+      "paint_p95_ms": 4.96
+    }
+  ],
+  "binary_sha256": "87d3ab9cbcf049d5911028a423370ba23d4c5f63b6f7b937c6e45faeaae1861b",
+  "gui_followup": "Desktop control denied; post-patch visual and physical touchpad verification pending"
+}

@@ -1,0 +1,39 @@
+[package]
+name = "mistpaper"
+version = "0.1.0"
+edition = "2024"
+description = "雾笺 — 原生中文写作客户端"
+license = "MIT"
+repository = "https://github.com/alexxxiong/mistpaper"
+publish = false
+
+[workspace]
+members = ["."]
+exclude = ["vendor/nsh-platform-gpui"]
+
+[patch."https://github.com/longbridge/nsh"]
+nsh-platform-gpui = { path = "vendor/nsh-platform-gpui" }
+
+[dependencies]
+nsh-core = { git = "https://github.com/longbridge/nsh", rev = "224d9a795c7ac9d10d75750de9351adac5549675", default-features = false }
+nsh-base = { git = "https://github.com/longbridge/nsh", rev = "224d9a795c7ac9d10d75750de9351adac5549675", default-features = false }
+nsh-platform-gpui = { git = "https://github.com/longbridge/nsh", rev = "224d9a795c7ac9d10d75750de9351adac5549675", default-features = false }
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = "1"
+chrono = "0.4"
+log = "0.4"
+env_logger = "0.11"
+# Keep the renderer on the version used by the accepted prototype.
+gpui = { package = "gpui-fast", version = "=0.1.13", default-features = false }
+gpui_platform = { package = "gpui-fast-platform", version = "=0.1.13", default-features = false }
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+debug = 0
+strip = "debuginfo"
+
+[profile.dev]
+debug = 0
+incremental = false

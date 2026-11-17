@@ -1,0 +1,78 @@
+[package]
+"name" = "nsh-platform-gpui"
+"description" = "GPUI backend (macOS, Windows, Linux): nsh apps drawn by GPUI, embeddable in GPUI and GPUI Kit apps."
+"version" = "0.5.1"
+"edition" = "2024"
+"license" = "Apache-2.0"
+"homepage" = "https://nsh.dev"
+"readme" = "README.md"
+"repository" = "https://github.com/longbridge/nsh"
+"publish" = false
+
+[features]
+"default" = ["js", "webview"]
+"js" = ["nsh-engine/js"]
+"dev" = ["js", "dep:nsh-dev", "dep:nsh-testing"]
+"shot" = ["gpui/test-support", "gpui_platform/test-support"]
+"runtime-shaders" = ["gpui_platform/runtime_shaders"]
+"webview" = ["dep:wry", "dep:gtk", "dep:webkit2gtk"]
+"video" = ["dep:gstreamer", "dep:gstreamer-app", "dep:gstreamer-video"]
+
+[dependencies]
+"log" = { "version" = "0.4" }
+
+[target."cfg(any(target_os = \"linux\", target_os = \"macos\", windows))".dependencies]
+"nsh-core" = { "version" = "0.5.1", "features" = ["svg", "loader"], "git" = "https://github.com/longbridge/nsh", "rev" = "224d9a795c7ac9d10d75750de9351adac5549675" }
+"nsh-engine" = { "version" = "0.5.1", "default-features" = false, "features" = ["net", "shader"], "git" = "https://github.com/longbridge/nsh", "rev" = "224d9a795c7ac9d10d75750de9351adac5549675" }
+"nsh-base" = { "version" = "0.5.1", "default-features" = false, "features" = ["editor", "emoji-picker", "highlight", "math", "plot", "rich-editor", "term"], "git" = "https://github.com/longbridge/nsh", "rev" = "224d9a795c7ac9d10d75750de9351adac5549675" }
+"gpui" = { "package" = "gpui-fast", "version" = "0.1.13", "default-features" = false, "features" = ["font-kit", "wayland", "x11"] }
+"gpui_platform" = { "package" = "gpui-fast-platform", "version" = "0.1.13", "default-features" = false, "features" = ["font-kit", "wayland", "x11"] }
+"image" = { "version" = "0.25", "default-features" = false, "features" = ["png", "gif", "webp", "jpeg", "bmp", "ico", "tiff"] }
+"rustc-hash" = { "version" = "2.1" }
+"tiny-skia" = { "version" = "0.11", "default-features" = false, "features" = ["std", "simd"] }
+"fontdb" = { "version" = "0.23" }
+"serde_json" = { "version" = "1" }
+"ttf-parser" = { "version" = "0.25" }
+"unicode-bidi" = { "version" = "0.3.18" }
+"unicode-linebreak" = { "version" = "0.1.5" }
+"anyhow" = { "version" = "1" }
+"base64" = { "version" = "0.22" }
+"crossbeam-channel" = { "version" = "0.5" }
+"futures-channel" = { "version" = "0.3" }
+"futures-util" = { "version" = "0.3", "default-features" = false, "features" = ["std"] }
+"nsh-dev" = { "version" = "0.5.1", "optional" = true, "features" = ["client"], "git" = "https://github.com/longbridge/nsh", "rev" = "224d9a795c7ac9d10d75750de9351adac5549675" }
+"nsh-testing" = { "version" = "0.5.1", "default-features" = false, "optional" = true, "features" = ["agent"], "git" = "https://github.com/longbridge/nsh", "rev" = "224d9a795c7ac9d10d75750de9351adac5549675" }
+"wry" = { "package" = "lb-wry", "version" = "0.53.3", "optional" = true }
+"gstreamer" = { "version" = "0.25", "optional" = true }
+"gstreamer-app" = { "version" = "0.25", "optional" = true }
+"gstreamer-video" = { "version" = "0.25", "optional" = true }
+
+[target."cfg(any(target_os = \"linux\", target_os = \"macos\", windows))".dev-dependencies]
+"nsh-bundler" = { "version" = "0.5.1", "default-features" = false, "git" = "https://github.com/longbridge/nsh", "rev" = "224d9a795c7ac9d10d75750de9351adac5549675" }
+"gpui" = { "package" = "gpui-fast", "version" = "0.1.13", "default-features" = false, "features" = ["font-kit", "wayland", "x11", "test-support"] }
+
+[target."cfg(target_os = \"linux\")".dependencies]
+"zbus" = { "version" = "5.19", "default-features" = false, "features" = ["async-io", "blocking-api"] }
+"raw-window-handle" = { "version" = "0.6" }
+"x11rb" = { "version" = "0.13", "default-features" = false, "features" = ["composite", "dri3", "present"] }
+"gtk" = { "version" = "0.18", "optional" = true }
+"webkit2gtk" = { "version" = "=2.0.1", "features" = ["v2_38"], "optional" = true }
+
+[target."cfg(target_os = \"macos\")".dependencies]
+"raw-window-handle" = { "version" = "0.6" }
+"objc2" = { "version" = "0.6" }
+"objc2-app-kit" = { "version" = "0.3.2", "default-features" = false, "features" = ["std", "NSView", "NSWindow", "NSResponder", "NSAppearance", "NSApplication", "NSButton", "NSControl", "NSGraphics", "NSScreen"] }
+"objc2-foundation" = { "version" = "0.3.2", "default-features" = false, "features" = ["std", "NSArray", "NSGeometry", "objc2-core-foundation"] }
+
+[target."cfg(windows)".dependencies]
+"raw-window-handle" = { "version" = "0.6" }
+"windows-sys" = { "version" = "0.61", "features" = ["Win32_System_Com", "Win32_Foundation", "Win32_Graphics_Dwm", "Win32_Graphics_Gdi", "Win32_UI_Input_KeyboardAndMouse", "Win32_UI_WindowsAndMessaging"] }
+
+[[test]]
+name = "render"
+required-features = ["shot"]
+harness = false
+
+[[example]]
+name = "embed"
+test = false

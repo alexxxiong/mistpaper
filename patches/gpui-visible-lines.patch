@@ -1,0 +1,29 @@
+--- a/src/text_input.rs
++++ b/src/text_input.rs
+@@ -581,8 +581,25 @@
+         return;
+     }
+     let size = px(layout.size * cx.transform_scale());
+-    let mut glyphs = Vec::with_capacity(layout.glyphs.len());
++    // Reserve for visible text, never for the entire long document.
++    let mut glyphs = Vec::with_capacity(256);
+     for line in &layout.lines {
++        // Cull complete offscreen lines before allocating or submitting glyphs.
++        // Keep overhang around ascenders/descenders; transformed text uses the
++        // original path so rotations and perspective retain their semantics.
++        if cx.axis_aligned() {
++            let pad = layout.size.max(line.text_height);
++            let band = cx.rect(
++                ox + line.x - pad,
++                oy + line.y - pad,
++                line.width + 2.0 * pad,
++                line.height + 2.0 * pad,
++            );
++            let visible = band.intersect(&cx.clip);
++            if visible.size.width <= px(0.0) || visible.size.height <= px(0.0) {
++                continue;
++            }
++        }
+         let y = oy + line.y + line.baseline;
+         for g in &layout.glyphs[line.glyphs.clone()] {
+             glyphs.push((cx.map(ox + line.x + g.x, y), *g));
