@@ -19,7 +19,19 @@ jobs:
       - run: cargo clippy --release --locked --all-targets -- -D warnings
       - shell: pwsh
         run: ./scripts/build.ps1
-      - uses: actions/upload-artifact@v4
+      - name: Upload portable client (optional)
+        id: client_artifact
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
         with:
           name: Mistpaper-windows-x86_64
           path: dist/Mistpaper
+          if-no-files-found: error
+          retention-days: 7
+      - name: Report incomplete artifact publication
+        if: steps.client_artifact.outcome == 'failure'
+        shell: pwsh
+        run: |
+          Write-Output '::warning::Code checks and packaging passed, but the optional artifact upload did not complete. See the upload step for the cause.'
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value '### Downloadable artifact not published'
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value 'Code validation and portable packaging passed. The optional artifact upload failed; inspect its log for the publishing error. A passing validation job does not imply that a downloadable artifact is available.'

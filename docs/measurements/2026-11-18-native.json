@@ -85,5 +85,14 @@
     }
   ],
   "binary_sha256": "87d3ab9cbcf049d5911028a423370ba23d4c5f63b6f7b937c6e45faeaae1861b",
-  "gui_followup": "Desktop control denied; post-patch visual and physical touchpad verification pending"
+  "gui_followup": "Completed after desktop restoration: visible text at start/end, injected wheel scrolling, Unicode text input and undo; all document bodies preserved. Physical touchpad and IME composition not covered.",
+  "post_patch_ui": {
+    "date": "2026-11-18",
+    "visual_start_and_end": "passed",
+    "injected_scroll_both_directions": "passed",
+    "unicode_input_persisted": "passed",
+    "undo_preserved_all_documents": "passed",
+    "physical_touchpad": "not automated",
+    "ime_composition": "not tested"
+  }
 }

@@ -36,6 +36,8 @@ cargo test --release --locked
 cargo clippy --release --locked --all-targets -- -D warnings
 ```
 
+Windows CI 严格执行上述检查和便携目录构建；下载产物上传为可选步骤。上传失败会在 Actions 摘要中单独标注，代码验证通过不代表下载产物已发布。
+
 ## 目录
 
 ```text
